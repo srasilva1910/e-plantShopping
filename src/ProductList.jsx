@@ -7,6 +7,7 @@ import { addItem } from './CartSlice';
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
+    const dispatch = useDispatch();
 
     const plantsArray = [
         {
@@ -256,12 +257,11 @@ function ProductList({ onHomeClick }) {
         setShowCart(false);
     };
 
-    const handleAddToCart = (product) => {
-        useDispatch(addItem(product)); // Dispatch the action to add the product to the cart (Redux action)
-      
+    const handleAddToCart = (plant) => {
+        dispatch(addItem(plant)); // Dispatch the action to add the product to the cart (Redux action)
         setAddedToCart((prevState) => ({ // Update the local state to reflect that the product has been added
           ...prevState, // Spread the previous state to retain existing entries
-          [product.name]: true, // Set the current product's name as a key with value 'true' to mark it as added
+          [plant.name]: true, // Set the current product's name as a key with value 'true' to mark it as added
         }));
       };
 
@@ -309,8 +309,9 @@ function ProductList({ onHomeClick }) {
                             <button
                                 className="product-button"
                                 onClick={() => handleAddToCart(plant)} // Handle adding plant to cart
+                                disabled={addedToCart[plant.name]}
                             >
-                                Add to Cart
+                                {addedToCart[plant.name]? 'Added': 'Add to Cart'}
                             </button>
                             </div>
                         ))}
