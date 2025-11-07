@@ -19,20 +19,29 @@ return total;
   };
 
   const handleContinueShopping = (e) => {
-   
+   onContinueShopping(e);
   };
 
+const handleCheckoutShopping = (e) => {
+  alert('Functionality to be added for future reference');
+};
 
+const handleIncrement = (item) => {
+  dispatch(updateQuantity({ name: item.name, quantity: item.quantity + 1 }));
+};
 
-  const handleIncrement = (item) => {
-  };
+const handleDecrement = (item) => {
+  if (item.quantity > 1) {
+    dispatch(updateQuantity({ name: item.name, quantity: item.quantity - 1 }));
+  } else {
+    dispatch(removeItem(item.name)); // Remove item if quantity drops to 0
+  }
+};
 
-  const handleDecrement = (item) => {
-   
-  };
+  const handleRemove = (itemName) => {
+      dispatch(removeItem(itemName));
 
-  const handleRemove = (item) => {
-  };
+};
 
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
@@ -54,7 +63,7 @@ return total;
                 <button className="cart-item-button cart-item-button-inc" onClick={() => handleIncrement(item)}>+</button>
               </div>
               <div className="cart-item-total">Total: ${calculateTotalCost(item)}</div>
-              <button className="cart-item-delete" onClick={() => handleRemove(item)}>Delete</button>
+              <button className="cart-item-delete" onClick={() => handleRemove(item.name)}>Delete</button>
             </div>
           </div>
         ))}
