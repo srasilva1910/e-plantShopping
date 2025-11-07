@@ -45,7 +45,11 @@ const handleDecrement = (item) => {
 
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
-  };
+      const price = parseFloat(item.cost.substring(1));
+  // Multiply by quantity to get subtotal for that item
+  return price * item.quantity;
+
+};
 
   return (
     <div className="cart-container">
